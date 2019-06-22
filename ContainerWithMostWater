@@ -47,3 +47,33 @@ public:
         return max_possible;
     }
 };
+
+/*
+O(n) solution
+
+Runtime: 12 ms, faster than 98.74% of C++ online submissions for Container With Most Water.
+Memory Usage: 9.7 MB, less than 66.59% of C++ online submissions for Container With Most Water.
+*/
+
+#include <algorithm>
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        long long max_possible = 0;
+        int left = 0;
+        int right = static_cast<int>(height.size()) - 1;
+        while (right - left) {
+            long long cur_max = std::min(height[left], height[right]) *
+                (right - left);
+            if (max_possible < cur_max) {
+                max_possible = cur_max;
+            }
+            if (height[left] < height[right]) {
+                ++left;
+            } else {
+                --right;
+            }
+        }
+        return max_possible;
+    }
+};
